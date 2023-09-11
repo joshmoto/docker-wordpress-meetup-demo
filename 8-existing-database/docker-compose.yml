@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+
+  # here is our mariadb container
+  db:
+    image: mariadb:11.0.2
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      # our persistent volume database mapping
+      - ./db:/var/lib/mysql
+      # enable mount below on initial docker compose up -d to build dump sql
+      # make sure there is no 'db' directory for this to build from sql file
+      #- ./docker/dumps:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+
+  # here is our wordpress container
+  wordpress:
+    image: wordpress:latest
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+    volumes:
+      # our persistent volume sub directories mapping
+      - ./themes/docker-wordpress:/var/www/html/wp-content/themes/docker-wordpress
+      - ./mu-plugins:/var/www/html/wp-content/mu-plugins
+      - ./plugins:/var/www/html/wp-content/plugins
+      - ./uploads:/var/www/html/wp-content/uploads
+      - ./docker/conf/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - ./docker/conf/error-logging.ini:/usr/local/etc/php/conf.d/error-logging.ini
+      - ./logs:/var/www/html/wp-content/logs
+    environment:
+
+      # our docker wp config settings
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+
+      # our docker wp config salts
+      WORDPRESS_AUTH_KEY: "l5B7APe|,)`M1I-tPb#Er ??h|yae]s.|F|*Noa|SF58Zc?)d;0o*[h#vZrk(>%5"
+      WORDPRESS_SECURE_KEY: "Z6{ 0Y)c9a(6<R}q/ihw2KYJ1HnZG+(>0/N*B+%awW9UAIr--9:9axy7h[vN[oYW"
+      WORDPRESS_LOGGED_IN_KEY: "sJRz1ysP6l(#n+Qc;A7^}+zRiz^a0~;MJfZE9>&(=d]6yW2?l ^igNdKZh?MB`zf"
+      WORDPRESS_NONCE_KEY: "WXo0&#&E{bUscB$|U7:I8dI;/_5R5a-J3q-0sd27|j)F$0=8Y_f=i`m.FuwC=ahA"
+      WORDPRESS_AUTH_SALT: "0;-T(dGLx|;W. %klfHS!reG ?*-#bg!D2kIHzKL<(sxhLZu{v M`h9VZ=2rQ_-;"
+      WORDPRESS_SECURE_AUTH_SALT: "{-+ILv0_eVvRE2kSQ{WmW+@wz1e]k`v+KoLN18m,Yc-]0{e-$7r45WT&&HsjGi#b"
+      WORDPRESS_LOGGED_IN_SALT: "2YI|cH~XfrFp@QI+WMo:8laU)T{k;,l[/hv?tUORII*x%MNeO?TpQ63EsU/3/8Gs"
+      WORDPRESS_NONCE_SALT: "/ +MJrm2w{qk)W7-=Y_l:1{~[CPkOa`D1#KR{ U$>j7IwffzyYuo^KlMb4^*9I5S"
+
+      # our docker wp config table prefix
+      WORDPRESS_TABLE_PREFIX: wp_
+
+      # our docker wp config extra php defines
+      WORDPRESS_CONFIG_EXTRA: |
+
+        /** disable wp core auto update */
+        define('WP_AUTO_UPDATE_CORE', false);
+        
+        /** force site home url */
+        if(!defined('WP_HOME')) {
+          define('WP_HOME', 'http://localhost');
+          define('WP_SITEURL', WP_HOME);
+        }

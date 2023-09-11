@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+
+  # here is our mysql container
+  # https://hub.docker.com/_/mysql
+  db:
+    image: mysql:5.7
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      # our persistent volume database mapping
+      - ./db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+
+  # here is our wordpress container
+  # https://hub.docker.com/_/wordpress
+  wordpress:
+    image: wordpress:4.4.0
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+    volumes:
+      # our persistent volume sub directories mapping
+      - ./themes/docker-wordpress:/var/www/html/wp-content/themes/docker-wordpress
+      - ./mu-plugins:/var/www/html/wp-content/mu-plugins
+      - ./plugins:/var/www/html/wp-content/plugins
+      - ./uploads:/var/www/html/wp-content/uploads
+    environment:
+
+      # our docker wp config settings
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+
+      # our docker wp config extra php defines
+      WORDPRESS_CONFIG_EXTRA: |
+
+        /** disable wp core auto update */
+        define('WP_AUTO_UPDATE_CORE', false);

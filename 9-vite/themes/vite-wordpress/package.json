@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "watch": "npm run dev",
+    "build": "vite build",
+    "production": "vite build"
+  },
+  "devDependencies": {
+    "laravel-vite-plugin": "^0.8.0",
+    "sass": "~1.64.2",
+    "vite": "^4.4.9"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.1"
+  }
+}

@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+
+  # here is our mariadb container
+  db:
+    image: mariadb:11.0.2
+    volumes:
+      # our persistent volume database mapping
+      - ./db:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+
+  # here is our wordpress container
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    volumes:
+      # our persistent volume directories mapping
+      - ./themes/docker-wordpress:/var/www/html/wp-content/themes/docker-wordpress
+      - ./mu-plugins:/var/www/html/wp-content/mu-plugins
+      - ./plugins:/var/www/html/wp-content/plugins
+      - ./uploads:/var/www/html/wp-content/uploads
+      - ./docker/conf/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - ./docker/conf/error-logging.ini:/usr/local/etc/php/conf.d/error-logging.ini
+      - ./logs:/var/www/html/wp-content/logs
+    ports:
+      - "80:80"
+    restart: always
+    environment:
+
+      # our docker wp config db settings
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+
+      # our docker wp config salts
+      WORDPRESS_AUTH_KEY: 5f6ede1b94d25a2294e29eeba929a8c80a5ac0fb
+      WORDPRESS_SECURE_KEY: 5f6ede1b94d25a2294e29eeba929a8c80a5ac0fb
+      WORDPRESS_LOGGED_IN_KEY: 5f6ede1b94d25a2294e29eeba929a8c80a5ac0fb
+      WORDPRESS_NONCE_KEY: 5f6ede1b94d25a2294e29eeba929a8c80a5ac0fb
+      WORDPRESS_SECURE_AUTH_SALT: 5f6ede1b94d25a2294e29eeba929a8c80a5ac0fb
+      WORDPRESS_LOGGED_IN_SALT: 5f6ede1b94d25a2294e29eeba929a8c80a5ac0fb
+      WORDPRESS_NONCE_SALT: 5f6ede1b94d25a2294e29eeba929a8c80a5ac0fb
+
+      # our docker wp config table prefix
+      WORDPRESS_TABLE_PREFIX: wp_
+
+      # our docker wp config debug mode (on)
+      WORDPRESS_DEBUG: 1
+
+      # our docker wp config extra php defines
+      WORDPRESS_CONFIG_EXTRA: |
+
+        /** disable wp core auto update */
+        define('WP_AUTO_UPDATE_CORE', false);
+        
+        /** local environment settings */
+        define('WP_CACHE', false);
+        define('ENVIRONMENT', 'local');
+        
+        /** force site home url */
+        if(!defined('WP_HOME')) {
+          define('WP_HOME', 'http://localhost');
+          define('WP_SITEURL', WP_HOME);
+        }
+        
+        /** mailhog smtp settings */
+        define('WORDPRESS_SMTP_AUTH', false);
+        define('WORDPRESS_SMTP_SECURE', '');
+        define('WORDPRESS_SMTP_HOST', 'mailhog');
+        define('WORDPRESS_SMTP_PORT', '1025');
+        define('WORDPRESS_SMTP_USERNAME', null);
+        define('WORDPRESS_SMTP_PASSWORD', null);
+        define('WORDPRESS_SMTP_FROM', 'no-reply@docker-wordpress.com');
+        define('WORDPRESS_SMTP_FROM_NAME', 'Docker Wordpress');
+
+  # here is our mailhog container
+  mailhog:
+    image: mailhog/mailhog:latest
+    ports:
+      - "8025:8025"

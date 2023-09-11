@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+
+  # here is our mysql or mariadb container
+  # https://hub.docker.com/_/mysql
+  # https://hub.docker.com/_/mariadb
+  db:
+    #image: mysql:5.7
+    image: mariadb:11.0.2
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+
+  # here is our wordpress container
+  # https://hub.docker.com/_/wordpress
+  wordpress:
+    image: wordpress:latest
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+    environment:
+
+      # our docker wp config settings
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+
+#      # our docker wp config extra php defines
+#      WORDPRESS_CONFIG_EXTRA: |
+#
+#        /** disable wp core auto update */
+#        define('WP_AUTO_UPDATE_CORE', false);
