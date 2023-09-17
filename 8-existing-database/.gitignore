@@ -1,4 +1,5 @@
 /db
 /plugins
 /uploads
-/docker/dumps/wordpress.sql
+# you should never commit you dumps to repo
+# /docker/dumps/wordpress.sql

@@ -1,3 +1,7 @@
 
-// Option A: Include all of Bootstrap
-@import "../node_modules/bootstrap/scss/bootstrap";
+// Option A: Include all of Bootstrap (installed in our package.json)
+//@import "../node_modules/bootstrap/scss/bootstrap";
+
+BODY {
+  background: blue;
+}

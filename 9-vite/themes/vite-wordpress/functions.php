@@ -18,7 +18,7 @@ if(is('local','staging'))
  * @link https://getcomposer.org/
  * @link https://packagist.org/
  */
-//require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
 // require our class libs
 require_once(__DIR__ . '/lib/Vite.lib.php');

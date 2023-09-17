@@ -1,0 +1,19 @@
+{
+  "core": null,
+  "phpVersion": null,
+  "plugins": [],
+  "themes": [],
+  "port": 8888,
+  "testsPort": 8889,
+  "config": {
+    "DB_NAME": "wordpress",
+    "DB_USER": "wordpress",
+    "DB_PASSWORD": "wordpress",
+    "WP_DEBUG": true
+  },
+  "mappings": {
+    "plugins": "/plugins",
+    "themes": "/themes",
+    "uploads": "/uploads"
+  }
+}

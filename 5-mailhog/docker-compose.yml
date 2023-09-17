@@ -24,6 +24,7 @@ services:
     image: wordpress:latest
     volumes:
       # our persistent volume directories mapping
+      # docker-wordpress is the example theme directory name
       - ./themes/docker-wordpress:/var/www/html/wp-content/themes/docker-wordpress
       - ./mu-plugins:/var/www/html/wp-content/mu-plugins
       - ./plugins:/var/www/html/wp-content/plugins
@@ -43,6 +44,7 @@ services:
       WORDPRESS_DB_NAME: wordpress
 
       # our docker wp config salts
+      # these can be the same for all your local environments
       WORDPRESS_AUTH_KEY: 5f6ede1b94d25a2294e29eeba929a8c80a5ac0fb
       WORDPRESS_SECURE_KEY: 5f6ede1b94d25a2294e29eeba929a8c80a5ac0fb
       WORDPRESS_LOGGED_IN_KEY: 5f6ede1b94d25a2294e29eeba929a8c80a5ac0fb

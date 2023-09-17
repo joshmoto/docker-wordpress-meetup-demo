@@ -21,4 +21,5 @@ if(is('local','staging'))
 //require __DIR__ . '/vendor/autoload.php';
 
 // require our class libs
-require_once(__DIR__ . '/lib/Mail.lib.php');
+if(is('local'))
+    require_once(__DIR__ . '/lib/Mail.lib.php');

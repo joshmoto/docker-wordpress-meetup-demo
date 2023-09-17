@@ -34,8 +34,8 @@ services:
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
 
-#      # our docker wp config extra php defines
-#      WORDPRESS_CONFIG_EXTRA: |
-#
-#        /** disable wp core auto update */
-#        define('WP_AUTO_UPDATE_CORE', false);
+      # our docker wp config extra php defines
+      WORDPRESS_CONFIG_EXTRA: |
+
+        /** disable wp core auto update */
+        define('WP_AUTO_UPDATE_CORE', false);

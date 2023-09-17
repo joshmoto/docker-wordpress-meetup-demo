@@ -24,6 +24,7 @@ services:
     image: wordpress:latest
     volumes:
       # our persistent volume directories mapping
+      # generatepress is the example existing theme directory name
       - ./themes/generatepress:/var/www/html/wp-content/themes/generatepress
       - ./mu-plugins:/var/www/html/wp-content/mu-plugins
       - ./plugins:/var/www/html/wp-content/plugins

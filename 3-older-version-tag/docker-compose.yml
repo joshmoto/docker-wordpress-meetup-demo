@@ -29,7 +29,7 @@ services:
       - db
     volumes:
       # our persistent volume sub directories mapping
-      - ./themes/docker-wordpress:/var/www/html/wp-content/themes/docker-wordpress
+      - ./themes:/var/www/html/wp-content/themes
       - ./mu-plugins:/var/www/html/wp-content/mu-plugins
       - ./plugins:/var/www/html/wp-content/plugins
       - ./uploads:/var/www/html/wp-content/uploads

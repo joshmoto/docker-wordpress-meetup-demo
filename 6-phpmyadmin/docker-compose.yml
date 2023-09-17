@@ -24,6 +24,7 @@ services:
     image: wordpress:latest
     volumes:
       # our persistent volume directories mapping
+      # docker-wordpress is the example theme directory name
       - ./themes/docker-wordpress:/var/www/html/wp-content/themes/docker-wordpress
       - ./mu-plugins:/var/www/html/wp-content/mu-plugins
       - ./plugins:/var/www/html/wp-content/plugins

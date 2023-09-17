@@ -29,7 +29,7 @@ services:
       - db
     volumes:
       # our persistent volume sub directories mapping
-      - ./themes/docker-wordpress:/var/www/html/wp-content/themes/docker-wordpress
+      - ./themes:/var/www/html/wp-content/themes
       - ./mu-plugins:/var/www/html/wp-content/mu-plugins
       - ./plugins:/var/www/html/wp-content/plugins
       - ./uploads:/var/www/html/wp-content/uploads
@@ -41,8 +41,8 @@ services:
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
 
-#      # our docker wp config extra php defines
-#      WORDPRESS_CONFIG_EXTRA: |
-#
-#        /** disable wp core auto update */
-#        define('WP_AUTO_UPDATE_CORE', false);
+      # our docker wp config extra php defines
+      WORDPRESS_CONFIG_EXTRA: |
+
+        /** disable wp core auto update */
+        define('WP_AUTO_UPDATE_CORE', false);
