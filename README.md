@@ -75,6 +75,7 @@ You can't WordPress via the dashboard like you would normally. Because when you 
 To update `wordpress:latest` image in Docker Desktop app, or any other image that uses a `:latest` tag. You simply run this Docker command line. Containers can be running or not running when using these commands. Running environments maybe need to be restarted to show updated image version.
 
 - [`docker pull wordpress`](https://docs.docker.com/engine/reference/commandline/pull/) - This pulls the most recent default WordPress image tag which is `:latest`.
+
 - [`docker pull wordpress:latest`](https://docs.docker.com/engine/reference/commandline/pull/) - This does the same as the above command, but you can adjust the `:[tag_version]` if you want to update or install a specific image tag version.
 
 ## Exploring files and directories in running containers 🔎
