@@ -43,13 +43,15 @@ services:
       WORDPRESS_DB_NAME: wordpress
 
       # our docker wp config salts
-      WORDPRESS_AUTH_KEY: 5f6ede1b94d25a2294e29eeba929a8c80a5ac0fb
-      WORDPRESS_SECURE_KEY: 5f6ede1b94d25a2294e29eeba929a8c80a5ac0fb
-      WORDPRESS_LOGGED_IN_KEY: 5f6ede1b94d25a2294e29eeba929a8c80a5ac0fb
-      WORDPRESS_NONCE_KEY: 5f6ede1b94d25a2294e29eeba929a8c80a5ac0fb
-      WORDPRESS_SECURE_AUTH_SALT: 5f6ede1b94d25a2294e29eeba929a8c80a5ac0fb
-      WORDPRESS_LOGGED_IN_SALT: 5f6ede1b94d25a2294e29eeba929a8c80a5ac0fb
-      WORDPRESS_NONCE_SALT: 5f6ede1b94d25a2294e29eeba929a8c80a5ac0fb
+      # these can be the same for all your local environments
+      WORDPRESS_AUTH_KEY: "67}vtsmT`@bm/$H+3WpI@(p0<IDcqKV0DwXP`40^=aBQd%H0-&w-E3+m)84-aBKo"
+      WORDPRESS_SECURE_KEY: "TVPPce0aFc35]0Me6aG%<d#|q9S5TM)l:%TwtiW>tg|z9@oXT2|B@)hj>nmwm2#1"
+      WORDPRESS_LOGGED_IN_KEY: "vU}p&C.#w{|vYw0[1)4s3Jw}{TQFrMq~!Js$S{cuUn549G91#1*-8GFIOOF {8-i"
+      WORDPRESS_NONCE_KEY: "2-^|}^+yiifSW0%)=m5hx$)+%hGDB<>I,VJu.+UG6(7ns]r*+j^w@_3FzXlrX*mH"
+      WORDPRESS_AUTH_SALT: "sLr:2+$Cce?W/ASO0+bU1INDX:83tfQ(6i;;QE+ydCG58tSsg`,k ugbAkCpvp~D"
+      WORDPRESS_SECURE_AUTH_SALT: "c5?c3e2bpi+d:x7cS2!5$)e:1#/}1#|*kXjM7a*prr7osM}G@m#wa0|uF1GBX:O%"
+      WORDPRESS_LOGGED_IN_SALT: "GK^;F|+MZR/^Bj%]G,BU;m)H5d|j,(5&mt<J[+|@kM|##d~[I/`}^EtF[6-?=>*U"
+      WORDPRESS_NONCE_SALT: "&b-d.+)AP `|I)5`~v##Vf}3wN)iwaHa-26*?^6rB`zhR>%g^DA31*lW|~-GspT["
 
       # our docker wp config table prefix
       WORDPRESS_TABLE_PREFIX: wp_

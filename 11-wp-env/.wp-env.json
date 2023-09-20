@@ -12,8 +12,7 @@
     "WP_DEBUG": true
   },
   "mappings": {
-    "plugins": "/plugins",
-    "themes": "/themes",
-    "uploads": "/uploads"
+    "wp-content": "/path/to/local/wp-content",
+    "uploads": "/path/to/local/uploads"
   }
 }
